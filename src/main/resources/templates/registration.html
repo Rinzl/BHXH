@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+<nav th:replace="layout :: navbar"></nav>
+
+<body>
+<div class="container mt-5">
+    <div th:if="${param.success}">
+        <div class="alert alert-info">
+            Đăng kí thành công
+        </div>
+    </div>
+    <div th:if="${param.alreadyRegistered}">
+        <div class="alert alert-info">
+            Số CMND đã tồn tại
+        </div>
+    </div>
+
+    <h2 class="text-center mb-3">Đăng kí mới hồ sơ</h2>
+    <form th:action="@{/registration}" th:object="${worker}" method="post" class="needs-validation form-center" novalidate>
+        <div class="form-group">
+            <label for="inputName">Họ và tên</label>
+            <input th:field="*{fullName}" class="form-control" id="inputName" required type="text">
+        </div>
+        <div class="form-row">
+            <div class="col-md-6 form-group">
+                <label for="inputDateBirth">Ngày sinh</label>
+                <input autocomplete="off" th:field="*{birthDate}" class="form-control" id="inputDateBirth" required type="text">
+            </div>
+            <div class="col-md-6 form-group">
+                <label for="inputGender">Giới tính</label>
+                <select th:field="*{gender}" class="custom-select" id="inputGender" required>
+                    <option value="">Chọn Giới tính</option>
+                    <option value=1>Nam</option>
+                    <option value=2>Nữ</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-4 form-group">
+                <label for="inputCMND">Số CMND</label>
+                <input th:field="*{identityNumber}" class="form-control" id="inputCMND" required type="tel">
+            </div>
+            <div class="col-md-4 form-group">
+                <label for="inputPlaceCMND">Nơi Cấp</label>
+                <select th:field="*{place}" data-style="''" data-style-base="form-control" class="selectpicker form-control" id="inputPlaceCMND" data-live-search="true" data-size="7" required>
+                    <option value="">- Chọn tỉnh -</option>
+
+                    <option value="92TTT">Thành phố Cần Thơ</option>
+
+                    <option value="91TTT">Tỉnh Kiên Giang</option>
+
+                    <option value="75TTT">Tỉnh Đồng Nai</option>
+
+                    <option value="20TTT">Tỉnh Lạng Sơn</option>
+
+                    <option value="89TTT">Tỉnh An Giang</option>
+
+                    <option value="34TTT">Tỉnh Thái Bình</option>
+
+                    <option value="62TTT">Tỉnh Kon Tum</option>
+
+                    <option value="45TTT">Tỉnh Quảng Trị</option>
+
+                    <option value="58TTT">Tỉnh Ninh Thuận</option>
+
+                    <option value="74TTT">Tỉnh Bình Dương</option>
+
+                    <option value="37TTT">Tỉnh Ninh Bình</option>
+
+                    <option value="31TTT">Thành phố Hải Phòng</option>
+
+                    <option value="95TTT">Tỉnh Bạc Liêu</option>
+
+                    <option value="08TTT">Tỉnh Tuyên Quang</option>
+
+                    <option value="14TTT">Tỉnh Sơn La</option>
+
+                    <option value="36TTT">Tỉnh Nam Định</option>
+
+                    <option value="25TTT">Tỉnh Phú Thọ</option>
+
+                    <option value="42TTT">Tỉnh Hà Tĩnh</option>
+
+                    <option value="93TTT">Tỉnh Hậu Giang</option>
+
+                    <option value="82TTT">Tỉnh Tiền Giang</option>
+
+                    <option value="66TTT">Tỉnh Đắk Lắk</option>
+
+                    <option value="80TTT">Tỉnh Long An</option>
+
+                    <option value="17TTT">Tỉnh Hòa Bình</option>
+
+                    <option value="87TTT">Tỉnh Đồng Tháp</option>
+
+                    <option value="19TTT">Tỉnh Thái Nguyên</option>
+
+                    <option value="83TTT">Tỉnh Bến Tre</option>
+
+                    <option value="54TTT">Tỉnh Phú Yên</option>
+
+                    <option value="26TTT">Tỉnh Vĩnh Phúc</option>
+
+                    <option value="94TTT">Tỉnh Sóc Trăng</option>
+
+                    <option value="60TTT">Tỉnh Bình Thuận</option>
+
+                    <option value="51TTT">Tỉnh Quảng Ngãi</option>
+
+                    <option value="64TTT">Tỉnh Gia Lai</option>
+
+                    <option value="77TTT">Tỉnh Bà Rịa - Vũng Tàu</option>
+
+                    <option value="79TTT">Thành phố Hồ Chí Minh</option>
+
+                    <option value="02TTT">Tỉnh Hà Giang</option>
+
+                    <option value="68TTT">Tỉnh Lâm Đồng</option>
+
+                    <option value="35TTT">Tỉnh Hà Nam</option>
+
+                    <option value="48TTT">Thành phố Đà Nẵng</option>
+
+                    <option value="70TTT">Tỉnh Bình Phước</option>
+
+                    <option value="49TTT">Tỉnh Quảng Nam</option>
+
+                    <option value="38TTT">Tỉnh Thanh Hóa</option>
+
+                    <option value="84TTT">Tỉnh Trà Vinh</option>
+
+                    <option value="11TTT">Tỉnh Điện Biên</option>
+
+                    <option value="27TTT">Tỉnh Bắc Ninh</option>
+
+                    <option value="30TTT">Tỉnh Hải Dương</option>
+
+                    <option value="46TTT">Tỉnh Thừa Thiên Huế</option>
+
+                    <option value="67TTT">Tỉnh Đắk Nông</option>
+
+                    <option value="44TTT">Tỉnh Quảng Bình</option>
+
+                    <option value="22TTT">Tỉnh Quảng Ninh</option>
+
+                    <option value="33TTT">Tỉnh Hưng Yên</option>
+
+                    <option value="96TTT">Tỉnh Cà Mau</option>
+
+                    <option value="10TTT">Tỉnh Lào Cai</option>
+
+                    <option value="56TTT">Tỉnh Khánh Hòa</option>
+
+                    <option value="40TTT">Tỉnh Nghệ An</option>
+
+                    <option value="12TTT">Tỉnh Lai Châu</option>
+
+                    <option value="72TTT">Tỉnh Tây Ninh</option>
+
+                    <option value="86TTT">Tỉnh Vĩnh Long</option>
+
+                    <option value="24TTT">Tỉnh Bắc Giang</option>
+
+                    <option value="04TTT">Tỉnh Cao Bằng</option>
+
+                    <option value="15TTT">Tỉnh Yên Bái</option>
+
+                    <option value="52TTT">Tỉnh Bình Định</option>
+
+                    <option value="01TTT">Thành phố Hà Nội</option>
+
+                    <option value="06TTT">Tỉnh Bắc Kạn</option>
+                </select>
+            </div>
+            <div class="col-md-4 form-group">
+                <label for="inputDateCMND">Ngày Cấp</label>
+                <input autocomplete="off" th:field="*{validFrom}" class="form-control" id="inputDateCMND" required type="text">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-6 form-group">
+                <label for="inputPhone">Điện thoại</label>
+                <input th:field="*{phoneNumber}" class="form-control" id="inputPhone" required type="tel">
+            </div>
+            <div class="col-md-6 form-group">
+                <label for="inputEmail">Email</label>
+                <input th:field="*{email}" class="form-control" id="inputEmail" required type="email">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputID">Mã số bảo hiểm xã hội</label>
+            <input th:field="*{msbh}" class="form-control" id="inputID" required type="text">
+        </div>
+        <fieldset>
+            <legend>Địa chỉ thường trú</legend>
+            <div class="form-row">
+                <div class="col-md-6 form-group">
+                    <label for="inputCity">Tỉnh/Thành phố</label>
+                    <select th:field="*{address.tinh}" data-style="''" data-style-base="form-control" class="selectpicker form-control" id="inputCity" data-live-search="true" data-size="7" required>
+                        <option value="">- Chọn tỉnh -</option>
+
+                        <option value="92TTT">Thành phố Cần Thơ</option>
+
+                        <option value="91TTT">Tỉnh Kiên Giang</option>
+
+                        <option value="75TTT">Tỉnh Đồng Nai</option>
+
+                        <option value="20TTT">Tỉnh Lạng Sơn</option>
+
+                        <option value="89TTT">Tỉnh An Giang</option>
+
+                        <option value="34TTT">Tỉnh Thái Bình</option>
+
+                        <option value="62TTT">Tỉnh Kon Tum</option>
+
+                        <option value="45TTT">Tỉnh Quảng Trị</option>
+
+                        <option value="58TTT">Tỉnh Ninh Thuận</option>
+
+                        <option value="74TTT">Tỉnh Bình Dương</option>
+
+                        <option value="37TTT">Tỉnh Ninh Bình</option>
+
+                        <option value="31TTT">Thành phố Hải Phòng</option>
+
+                        <option value="95TTT">Tỉnh Bạc Liêu</option>
+
+                        <option value="08TTT">Tỉnh Tuyên Quang</option>
+
+                        <option value="14TTT">Tỉnh Sơn La</option>
+
+                        <option value="36TTT">Tỉnh Nam Định</option>
+
+                        <option value="25TTT">Tỉnh Phú Thọ</option>
+
+                        <option value="42TTT">Tỉnh Hà Tĩnh</option>
+
+                        <option value="93TTT">Tỉnh Hậu Giang</option>
+
+                        <option value="82TTT">Tỉnh Tiền Giang</option>
+
+                        <option value="66TTT">Tỉnh Đắk Lắk</option>
+
+                        <option value="80TTT">Tỉnh Long An</option>
+
+                        <option value="17TTT">Tỉnh Hòa Bình</option>
+
+                        <option value="87TTT">Tỉnh Đồng Tháp</option>
+
+                        <option value="19TTT">Tỉnh Thái Nguyên</option>
+
+                        <option value="83TTT">Tỉnh Bến Tre</option>
+
+                        <option value="54TTT">Tỉnh Phú Yên</option>
+
+                        <option value="26TTT">Tỉnh Vĩnh Phúc</option>
+
+                        <option value="94TTT">Tỉnh Sóc Trăng</option>
+
+                        <option value="60TTT">Tỉnh Bình Thuận</option>
+
+                        <option value="51TTT">Tỉnh Quảng Ngãi</option>
+
+                        <option value="64TTT">Tỉnh Gia Lai</option>
+
+                        <option value="77TTT">Tỉnh Bà Rịa - Vũng Tàu</option>
+
+                        <option value="79TTT">Thành phố Hồ Chí Minh</option>
+
+                        <option value="02TTT">Tỉnh Hà Giang</option>
+
+                        <option value="68TTT">Tỉnh Lâm Đồng</option>
+
+                        <option value="35TTT">Tỉnh Hà Nam</option>
+
+                        <option value="48TTT">Thành phố Đà Nẵng</option>
+
+                        <option value="70TTT">Tỉnh Bình Phước</option>
+
+                        <option value="49TTT">Tỉnh Quảng Nam</option>
+
+                        <option value="38TTT">Tỉnh Thanh Hóa</option>
+
+                        <option value="84TTT">Tỉnh Trà Vinh</option>
+
+                        <option value="11TTT">Tỉnh Điện Biên</option>
+
+                        <option value="27TTT">Tỉnh Bắc Ninh</option>
+
+                        <option value="30TTT">Tỉnh Hải Dương</option>
+
+                        <option value="46TTT">Tỉnh Thừa Thiên Huế</option>
+
+                        <option value="67TTT">Tỉnh Đắk Nông</option>
+
+                        <option value="44TTT">Tỉnh Quảng Bình</option>
+
+                        <option value="22TTT">Tỉnh Quảng Ninh</option>
+
+                        <option value="33TTT">Tỉnh Hưng Yên</option>
+
+                        <option value="96TTT">Tỉnh Cà Mau</option>
+
+                        <option value="10TTT">Tỉnh Lào Cai</option>
+
+                        <option value="56TTT">Tỉnh Khánh Hòa</option>
+
+                        <option value="40TTT">Tỉnh Nghệ An</option>
+
+                        <option value="12TTT">Tỉnh Lai Châu</option>
+
+                        <option value="72TTT">Tỉnh Tây Ninh</option>
+
+                        <option value="86TTT">Tỉnh Vĩnh Long</option>
+
+                        <option value="24TTT">Tỉnh Bắc Giang</option>
+
+                        <option value="04TTT">Tỉnh Cao Bằng</option>
+
+                        <option value="15TTT">Tỉnh Yên Bái</option>
+
+                        <option value="52TTT">Tỉnh Bình Định</option>
+
+                        <option value="01TTT">Thành phố Hà Nội</option>
+
+                        <option value="06TTT">Tỉnh Bắc Kạn</option>
+                    </select>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="inputProvince">Quận/Huyện</label>
+                    <select th:field="*{address.huyen}" data-style="''" data-style-base="form-control" class="selectpicker form-control" data-live-search="true" data-size="7" id="inputProvince" required>
+                        <option value="">Chọn Quận/Huyện</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-6 form-group">
+                    <label for="inputPX">Phường/Xã</label>
+                    <select th:field="*{address.phuong}" data-style="''" data-style-base="form-control" class="selectpicker form-control" data-live-search="true" data-size="7" id="inputPX" required>
+                        <option value="">Chọn Phường/Xã</option>
+                    </select>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="inputTX">Thôn/Xóm</label>
+                    <select th:field="*{address.xa}" data-style="''" data-style-base="form-control" class="selectpicker form-control" data-live-search="true" data-size="7" id="inputTX" required>
+                        <option value="">Chọn Thôn/Xóm</option>
+                    </select>
+                </div>
+            </div>
+        </fieldset>
+        <button class="btn btn-primary" type="submit">Tạo Mã số bảo hiểm</button>
+        <a class="btn btn-danger" th:href="@{/}">Hủy</a>
+    </form>
+</div>
+</body>
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
+<script th:src="@{/bootstrap/js/jquery-3.3.1.slim.min.js}" type="text/javascript"></script>
+<script th:src="@{/bootstrap/js/popper.min.js}" type="text/javascript"></script>
+<script th:src="@{/bootstrap/js/bootstrap.min.js}" type="text/javascript"></script>
+<script th:src="@{/bootstrap/js/custom.js}" type="text/javascript" charset="UTF-8"></script>
+<script th:src="@{/bootstrap-datepicker/js/bootstrap-datepicker.min.js}" type="text/javascript"></script>
+<script th:src="@{/bootstrap-select/js/bootstrap-select.min.js}" type="text/javascript"></script>
+<script th:src="@{/bootstrap-select/js/i18n/defaults-vi_VN.min.js}" type="text/javascript"></script>
+<script charset="UTF-8" th:src="@{/bootstrap-datepicker/js/locales/bootstrap-datepicker.vi.min.js}"></script>
+<script>
+    $('#inputDateCMND,#inputDateBirth').datepicker({
+        format: "dd/mm/yyyy",
+        weekStart: 1,
+        clearBtn: true,
+        language: "vi",
+        todayHighlight: true,
+        orientation: "bottom left",
+        autoclose: true
+    });
+</script>
+</html>

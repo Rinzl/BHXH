@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+<nav th:replace="layout :: navbar"></nav>
+<body>
+<div class="container">
+    <h1 class="text-center mt-5 mb-3">Thông tin đăng kí</h1>
+    <div class="input-group mb-3 form-center">
+        <input id="search" type="text" class="form-control" placeholder="Số CMND" aria-label="Recipient's username" aria-describedby="basic-addon2">
+        <div class="input-group-append">
+            <button id="action" class="btn btn-outline-secondary" type="button">Tìm kiếm</button>
+        </div>
+    </div>
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Họ và tên</th>
+                <th>Ngày sinh</th>
+                <th>Mã số BHXH</th>
+                <th>Số CMND</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+<script type="text/javascript" th:src="@{/bootstrap/js/jquery-3.3.1.slim.min.js}"></script>
+<script type="text/javascript" th:src="@{/bootstrap/js/popper.min.js}"></script>
+<script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+<script>
+    $(document).ready(function(){
+        var lastSearch = "";
+        $("#action").click(function(){
+            var search = $("#search").val();
+            var url = "/api/worker/info/"+search;
+            if (lastSearch !== search) {
+                lastSearch = search;
+                $.ajax({
+                    url : url,
+                    success : function (data) {
+                        $("table tbody").find('td').each(function(){
+                            $(this).parents("tr").remove();
+                        });
+                        var markup = "<tr><td>"+ data["fullName"] +"</td><td>" + data["birthDate"] + "</td><td>" + data["msbh"] + "</td><td>" + data["identityCard"]["number"] + "</td></tr>";
+                        $("table tbody").append(markup);
+                    }
+                });
+            }
+        });
+        
+    });
+</script>
+</html>
