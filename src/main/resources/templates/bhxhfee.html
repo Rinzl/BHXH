@@ -53,10 +53,36 @@
         }
     });
     numeral.locale('vi');
+    var c = new Cleave('#inputDefault', {
+        numeral:true,
+        numericOnly : true,
+        delimiter: '',
+        numeralDecimalScale: 0
+    });
     $("input[name='inlineRadioOptions']").change(function(e){
         if ($(this).val() === 'registered') {
+            if (c !== undefined) {
+                c.destroy();
+            }
+            c = new Cleave('#inputDefault', {
+                numeral:true,
+                numericOnly : true,
+                delimiter: '',
+                numeralDecimalScale: 0
+            });
             $("input#inputDefault").attr('placeholder', 'Mã số bảo hiểm xã hội');
+            $("input#inputDefault").val("");
         } else {
+            if (c !== undefined) {
+                c.destroy();
+            }
+            c = new Cleave('#inputDefault', {
+                numeral: true,
+                numeralDecimalMark: ',',
+                delimiter: '.',
+                numeralPositiveOnly: true
+            });
+            $("input#inputDefault").val("");
             $("input#inputDefault").attr('placeholder', 'Lương');
         }
     });
@@ -70,13 +96,17 @@
             var r = per * (numeral(wage).value());
             console.log(r);
             $('#result').text(result + numeral(r).format('0,0') + currency);
+        } else {
+            var search = $("#inputDefault").val();
+            var url = "/api/worker/info?msbh="+search;
+            $.ajax({
+                url : url,
+                success : function (data) {
+                    var r = per * (numeral(data["salary"]).value());
+                    $('#result').text(result + numeral(r).format('0,0') + currency);
+                }
+            });
         }
-    });
-
-    new Cleave('#inputDefault', {
-        numeral: true,
-        numeralDecimalMark: ',',
-        delimiter: '.'
     });
 </script>
 </html>

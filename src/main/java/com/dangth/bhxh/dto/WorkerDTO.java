@@ -16,6 +16,6 @@ public class WorkerDTO {
     private String phoneNumber;
     private String email;
     private String msbh;
-    private Integer salary;
+    private String salary;
     private Address address;
 }

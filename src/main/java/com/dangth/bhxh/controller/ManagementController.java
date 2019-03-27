@@ -20,4 +20,8 @@ public class ManagementController {
     public Worker getInfo(@PathVariable String number) {
         return workerRepository.findByIdentityCard_Number(number);
     }
+    @GetMapping("/info")
+    public Worker getInfoByMSBH(@RequestParam("msbh") String msbh) {
+        return workerRepository.findByMsbh(msbh);
+    }
 }

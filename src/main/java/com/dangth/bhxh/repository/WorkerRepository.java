@@ -5,4 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface WorkerRepository extends CrudRepository<Worker, Long> {
     Worker findByIdentityCard_Number(String number);
+    Worker findByMsbh(String msbh);
 }
