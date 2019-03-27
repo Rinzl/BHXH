@@ -18,7 +18,8 @@ public class DTOUtils {
             worker.setAddress(workerDTO.getAddress());
             worker.setEmail(workerDTO.getEmail());
             worker.setGender(workerDTO.getGender());
-            worker.setMsbh(workerDTO.getMsbh());
+            worker.setMsbh(String.valueOf(System.currentTimeMillis()));
+            worker.setSalary(workerDTO.getSalary());
             worker.setPhoneNumber(workerDTO.getPhoneNumber());
             worker.setBirthDate(dateFormat.parse(workerDTO.getBirthDate()));
             identityCard.setNumber(workerDTO.getIdentityNumber());
