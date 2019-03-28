@@ -14,6 +14,7 @@ public class DTOUtils {
         try {
             Worker worker = new Worker();
             IdentityCard identityCard = new IdentityCard();
+            worker.setId(workerDTO.getId());
             worker.setFullName(workerDTO.getFullName());
             worker.setAddress(workerDTO.getAddress());
             worker.setEmail(workerDTO.getEmail());
@@ -31,5 +32,22 @@ public class DTOUtils {
             e.printStackTrace();
             return null;
         }
+    }
+    public static WorkerDTO toWorkerDTO(Worker worker) {
+        WorkerDTO dto = new WorkerDTO();
+        dto.setAddress(worker.getAddress());
+        dto.setFullName(worker.getFullName());
+        dto.setBirthDate(dateFormat.format(worker.getBirthDate()));
+        dto.setId(worker.getId());
+        dto.setEmail(worker.getEmail());
+        dto.setIdentityNumber(worker.getIdentityCard().getNumber());
+        dto.setValidFrom(dateFormat.format(worker.getIdentityCard().getValidFrom()));
+        dto.setPlace(worker.getIdentityCard().getPlace());
+        dto.setGender(worker.getGender());
+        dto.setMsbh(worker.getMsbh());
+        dto.setPhoneNumber(worker.getPhoneNumber());
+        dto.setSalary(String.valueOf(worker.getSalary()));
+        return dto;
+
     }
 }

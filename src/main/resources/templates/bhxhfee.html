@@ -94,7 +94,6 @@
         var wage = $("input#inputDefault").val();
         if(radioValue === 'notRegistered'){
             var r = per * (numeral(wage).value());
-            console.log(r);
             $('#result').text(result + numeral(r).format('0,0') + currency);
         } else {
             var search = $("#inputDefault").val();
@@ -102,6 +101,7 @@
             $.ajax({
                 url : url,
                 success : function (data) {
+                    if (data === '') alert("Ko tìm thấy mã bảo hiểm");
                     var r = per * (numeral(data["salary"]).value());
                     $('#result').text(result + numeral(r).format('0,0') + currency);
                 }

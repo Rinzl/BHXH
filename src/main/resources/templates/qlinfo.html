@@ -5,8 +5,27 @@
 <nav th:replace="layout :: navbar"></nav>
 <body>
 <div class="container mt-5">
+    <div th:if="${param.notFound}">
+        <div class="alert alert-danger">
+            Không tìm thấy người người lao động
+        </div>
+    </div>
+    <div th:if="${param.success}">
+        <div class="alert alert-danger">
+            Cập nhật thành công
+        </div>
+    </div>
     <h2 class="text-center mb-3">Cập nhật hồ sơ</h2>
-    <form th:action="@{/registration}" th:object="${worker}" method="post" class="needs-validation form-center" novalidate>
+
+    <div class="form-inline form-center">
+        <input id="inputDefault" class="form-control mr-sm-2" placeholder="Mã số BHXH hoặc CMT">
+        <a id="btnFind" class="btn btn-outline-success my-2 my-sm-0">Tìm</a>
+    </div>
+
+    <form th:action="@{/qlinfo}" th:object="${worker}" method="post" class="needs-validation form-center" novalidate>
+        <input th:field="*{id}" type="hidden" id="workerID">
+        <input th:field="*{address.id}" type="hidden" id="AddressID">
+
         <div class="form-group">
             <label for="inputName">Họ và tên</label>
             <input th:field="*{fullName}" class="form-control" id="inputName" required type="text">
@@ -32,7 +51,7 @@
             </div>
             <div class="col-md-4 form-group">
                 <label for="inputPlaceCMND">Nơi Cấp</label>
-                <select th:field="*{place}" data-style="''" data-style-base="form-control" class="selectpicker form-control" id="inputPlaceCMND" required>
+                <select th:field="*{place}" data-style="''" data-style-base="form-control" class="selectpicker form-control" data-live-search="true" data-size="7" id="inputPlaceCMND" required>
                     <option value="">- Chọn tỉnh -</option>
 
                     <option value="92TTT">Thành phố Cần Thơ</option>
@@ -178,8 +197,8 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="inputID">Mã số bảo hiểm xã hội</label>
-            <input th:field="*{msbh}" class="form-control" id="inputID" required type="text">
+            <label for="inputSalary">Lương</label>
+            <input th:field="*{salary}" class="form-control" id="inputSalary" required type="text">
         </div>
         <fieldset>
             <legend>Địa chỉ thường trú</legend>
@@ -318,22 +337,25 @@
                 </div>
                 <div class="col-md-6 form-group">
                     <label for="inputProvince">Quận/Huyện</label>
-                    <select th:field="*{address.huyen}" data-style="''" data-style-base="form-control" class="selectpicker form-control" data-size="5" id="inputProvince" required>
+                    <select th:field="*{address.huyen}" data-style="''" data-style-base="form-control" class="selectpicker form-control" data-live-search="true" data-size="7" id="inputProvince" required>
                         <option value="">Chọn Quận/Huyện</option>
+                        <option th:each="province : ${provinceList}" th:value="${province.getIdprovince()}" th:text="${province.getName()}"></option>
                     </select>
                 </div>
             </div>
             <div class="form-row">
                 <div class="col-md-6 form-group">
                     <label for="inputPX">Phường/Xã</label>
-                    <select th:field="*{address.phuong}" data-style="''" data-style-base="form-control" class="selectpicker form-control" data-size="5" id="inputPX" required>
+                    <select th:field="*{address.phuong}" data-style="''" data-style-base="form-control" class="selectpicker form-control" data-live-search="true" data-size="7" id="inputPX" required>
                         <option value="">Chọn Phường/Xã</option>
+                        <option th:each="commune : ${communeList}" th:value="${commune.getIdcommune()}" th:text="${commune.getCommune()}"></option>
                     </select>
                 </div>
                 <div class="col-md-6 form-group">
                     <label for="inputTX">Thôn/Xóm</label>
-                    <select th:field="*{address.xa}" data-style="''" data-style-base="form-control" class="selectpicker form-control" data-size="5" id="inputTX" required>
+                    <select th:field="*{address.xa}" data-style="''" data-style-base="form-control" class="selectpicker form-control" data-live-search="true" data-size="7" id="inputTX" required>
                         <option value="">Chọn Thôn/Xóm</option>
+                        <option th:each="hamlet : ${hamletList}" th:value="${hamlet.getIdhamlet()}" th:text="${hamlet.getHamlet()}"></option>
                     </select>
                 </div>
             </div>
@@ -343,6 +365,32 @@
     </form>
 </div>
 </body>
+<script th:src="@{/bootstrap/js/jquery-3.3.1.slim.min.js}" type="text/javascript"></script>
+<script th:src="@{/bootstrap/js/popper.min.js}" type="text/javascript"></script>
+<script th:src="@{/bootstrap/js/bootstrap.min.js}" type="text/javascript"></script>
+<script th:src="@{/bootstrap/js/custom.js}" type="text/javascript" charset="UTF-8"></script>
+<script th:src="@{/bootstrap-datepicker/js/bootstrap-datepicker.min.js}" type="text/javascript"></script>
+<script th:src="@{/bootstrap-select/js/bootstrap-select.min.js}" type="text/javascript"></script>
+<script th:src="@{/bootstrap-select/js/i18n/defaults-vi_VN.min.js}" type="text/javascript"></script>
+<script charset="UTF-8" th:src="@{/bootstrap-datepicker/js/locales/bootstrap-datepicker.vi.min.js}"></script>
+<script type="text/javascript" th:src="@{/bootstrap/js/cleave.js}"></script>
+<script>
+    $('#inputDateCMND,#inputDateBirth').datepicker({
+        format: "dd/mm/yyyy",
+        weekStart: 1,
+        clearBtn: true,
+        language: "vi",
+        todayHighlight: true,
+        orientation: "bottom left",
+        autoclose: true
+    });
+    c = new Cleave('#inputSalary', {
+        numeral: true,
+        numeralDecimalMark: ',',
+        delimiter: '.',
+        numeralPositiveOnly: true
+    });
+</script>
 <script>
     // Example starter JavaScript for disabling form submissions if there are invalid fields
     (function () {
@@ -362,24 +410,10 @@
             });
         }, false);
     })();
-</script>
-<script th:src="@{/bootstrap/js/jquery-3.3.1.slim.min.js}" type="text/javascript"></script>
-<script th:src="@{/bootstrap/js/popper.min.js}" type="text/javascript"></script>
-<script th:src="@{/bootstrap/js/bootstrap.min.js}" type="text/javascript"></script>
-<script th:src="@{/bootstrap/js/custom.js}" type="text/javascript" charset="UTF-8"></script>
-<script th:src="@{/bootstrap-datepicker/js/bootstrap-datepicker.min.js}" type="text/javascript"></script>
-<script th:src="@{/bootstrap-select/js/bootstrap-select.min.js}" type="text/javascript"></script>
-<script th:src="@{/bootstrap-select/js/i18n/defaults-vi_VN.min.js}" type="text/javascript"></script>
-<script charset="UTF-8" th:src="@{/bootstrap-datepicker/js/locales/bootstrap-datepicker.vi.min.js}"></script>
-<script>
-    $('#inputDateCMND,#inputDateBirth').datepicker({
-        format: "dd/mm/yyyy",
-        weekStart: 1,
-        clearBtn: true,
-        language: "vi",
-        todayHighlight: true,
-        orientation: "bottom left",
-        autoclose: true
+    var baseUrl = "/qlinfo/";
+    $('#inputDefault').on('input', function() {
+        var id = $('#inputDefault').val();
+        $('#btnFind').attr('href', baseUrl+id);
     });
 </script>
 </html>
