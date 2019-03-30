@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class WorkerDTO {
     private Long id;
+    private Long identityId;
     private String fullName;
     private String birthDate;
     private Integer gender;

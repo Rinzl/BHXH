@@ -23,6 +23,7 @@ public class DTOUtils {
             worker.setSalary(Integer.parseInt(workerDTO.getSalary().replace(".","").replace(",","")));
             worker.setPhoneNumber(workerDTO.getPhoneNumber());
             worker.setBirthDate(dateFormat.parse(workerDTO.getBirthDate()));
+            identityCard.setId(workerDTO.getIdentityId());
             identityCard.setNumber(workerDTO.getIdentityNumber());
             identityCard.setPlace(workerDTO.getPlace());
             identityCard.setValidFrom(dateFormat.parse(workerDTO.getValidFrom()));
@@ -41,6 +42,7 @@ public class DTOUtils {
         dto.setId(worker.getId());
         dto.setEmail(worker.getEmail());
         dto.setIdentityNumber(worker.getIdentityCard().getNumber());
+        dto.setIdentityId(worker.getIdentityCard().getId());
         dto.setValidFrom(dateFormat.format(worker.getIdentityCard().getValidFrom()));
         dto.setPlace(worker.getIdentityCard().getPlace());
         dto.setGender(worker.getGender());
