@@ -57,7 +57,7 @@
             </div>
             <div class="col-md-4 form-group">
                 <label for="inputPlaceCMND">Nơi Cấp</label>
-                <select th:field="*{place}" data-style="''" data-style-base="form-control" class="selectpicker form-control" data-live-search="true" data-size="7" id="inputPlaceCMND" required>
+                <select th:field="*{place}" data-style="''" data-style-base="form-control" class="selectpicker form-control" data-live-search="true" data-live-search-style="contains" data-live-search-normalize="true" data-size="7" id="inputPlaceCMND" required>
                     <option value="">- Chọn tỉnh -</option>
 
                     <option value="92TTT">Thành phố Cần Thơ</option>
@@ -211,7 +211,7 @@
             <div class="form-row">
                 <div class="col-md-6 form-group">
                     <label for="inputCity">Tỉnh/Thành phố</label>
-                    <select th:field="*{address.tinh}" data-style="''" data-style-base="form-control" class="selectpicker form-control" id="inputCity" data-live-search="true" data-size="7" required>
+                    <select th:field="*{address.tinh}" data-style="''" data-style-base="form-control" class="selectpicker form-control" id="inputCity" data-live-search="true" data-live-search-style="contains" data-live-search-normalize="true" data-size="7" required>
                         <option value="">- Chọn tỉnh -</option>
 
                         <option value="92TTT">Thành phố Cần Thơ</option>
@@ -343,7 +343,7 @@
                 </div>
                 <div class="col-md-6 form-group">
                     <label for="inputProvince">Quận/Huyện</label>
-                    <select th:field="*{address.huyen}" data-style="''" data-style-base="form-control" class="selectpicker form-control" data-live-search="true" data-size="7" id="inputProvince" required>
+                    <select th:field="*{address.huyen}" data-style="''" data-style-base="form-control" class="selectpicker form-control" data-live-search="true" data-live-search-style="contains" data-live-search-normalize="true" data-size="7" id="inputProvince" required>
                         <option value="">Chọn Quận/Huyện</option>
                         <option th:each="province : ${provinceList}" th:value="${province.getIdprovince()}" th:text="${province.getName()}"></option>
                     </select>
@@ -352,14 +352,14 @@
             <div class="form-row">
                 <div class="col-md-6 form-group">
                     <label for="inputPX">Phường/Xã</label>
-                    <select th:field="*{address.phuong}" data-style="''" data-style-base="form-control" class="selectpicker form-control" data-live-search="true" data-size="7" id="inputPX" required>
+                    <select th:field="*{address.phuong}" data-style="''" data-style-base="form-control" class="selectpicker form-control" data-live-search="true" data-live-search-style="contains" data-live-search-normalize="true" data-size="7" id="inputPX" required>
                         <option value="">Chọn Phường/Xã</option>
                         <option th:each="commune : ${communeList}" th:value="${commune.getIdcommune()}" th:text="${commune.getCommune()}"></option>
                     </select>
                 </div>
                 <div class="col-md-6 form-group">
                     <label for="inputTX">Thôn/Xóm</label>
-                    <select th:field="*{address.xa}" data-style="''" data-style-base="form-control" class="selectpicker form-control" data-live-search="true" data-size="7" id="inputTX" required>
+                    <select th:field="*{address.xa}" data-style="''" data-style-base="form-control" class="selectpicker form-control" data-live-search="true" data-live-search-style="contains" data-live-search-normalize="true" data-size="7" id="inputTX" required>
                         <option value="">Chọn Thôn/Xóm</option>
                         <option th:each="hamlet : ${hamletList}" th:value="${hamlet.getIdhamlet()}" th:text="${hamlet.getHamlet()}"></option>
                     </select>
@@ -396,6 +396,7 @@
         delimiter: '.',
         numeralPositiveOnly: true
     });
+    $('.selectpicker').selectpicker();
 </script>
 <script>
     // Example starter JavaScript for disabling form submissions if there are invalid fields
