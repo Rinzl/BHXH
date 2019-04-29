@@ -88,6 +88,8 @@
                                 fee = sal * 0.08;
                             }
                             else fee = 0;
+                            const MAX_SAL = 27800000;
+                            if (sal >= MAX_SAL) fee = MAX_SAL * 0.08;
                             var markup =
                                 "<tr><td>"
                                 + data["fullName"]
