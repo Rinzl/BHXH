@@ -1,8 +1,25 @@
 $(document).ready(function () {
     $('#inputCity').on('change.bs.select', function () {
+        getProvince();
+        return false;
+    });
 
-        var url = "/api/province/";
-        var lstmatinh = $("#inputCity").val();
+    $('#inputProvince').on('change.bs.select', function () {
+
+        getCommune();
+        return false;
+    });
+    $('#inputPX').on('change.bs.select', function () {
+
+        getHamlet();
+        return false;
+    });
+});
+
+function getProvince() {
+    var url = "/api/province/";
+    var lstmatinh = $("#inputCity").val();
+    if (lstmatinh !== "") {
         $('#inputProvince option').remove();
         $('#inputPX option').remove();
         $('#inputTX option').remove();
@@ -13,13 +30,15 @@ $(document).ready(function () {
         $.ajax({
             url : url+lstmatinh,
             success : function (data) {
-                $('#inputProvince').append($('<option>', {
+                var inputElem = $('#inputProvince');
+                // inputElem.prop('disabled', false);
+                inputElem.append($('<option>', {
                     value: "",
-                    text: "--Chọn huyện--"
+                    text: "-Chọn huyện-"
                 }));
                 $(data).each(function (i, item) {
                     console.log(item);
-                    $('#inputProvince').append($('<option>', {
+                    inputElem.append($('<option>', {
                         value: item["idprovince"],
                         text: item["name"]
                     }));
@@ -27,24 +46,29 @@ $(document).ready(function () {
                 $('.selectpicker').selectpicker('refresh');
             }
         });
-        return false;
-    });
+    } else {
+        // $("#inputProvince").prop('disabled', 'disabled');
+        // $("#inputPX").prop('disabled', 'disabled');
+        // $("#inputTX").prop('disabled', 'disabled');
+    }
+}
 
-    $('#inputProvince').on('change.bs.select', function () {
+function getCommune() {
+    var url = "/api/commune/";
+    var id = $("#inputProvince").val();
+    $('#inputPX option').remove();
+    $('#inputTX option').remove();
+    $('#inputPX').val('');
+    $('#inputTX').val('');
 
-        var url = "/api/commune/";
-        var id = $("#inputProvince").val();
-        $('#inputPX option').remove();
-        $('#inputTX option').remove();
-        $('#inputPX').val('');
-        $('#inputTX').val('');
-
+    if (id !== "") {
         $.ajax({
             url : url+id,
             success : function (data) {
+
                 $('#inputPX').append($('<option>', {
                     value: "",
-                    text: "--Chọn Phường/Xã--"
+                    text: "-Chọn Phường/Xã-"
                 }));
                 $(data).each(function (i, item) {
                     console.log(item);
@@ -56,21 +80,25 @@ $(document).ready(function () {
                 $('.selectpicker').selectpicker('refresh');
             }
         });
-        return false;
-    });
-    $('#inputPX').on('change.bs.select', function () {
+    }
+    else {
+        // $("#inputPX").prop('disabled', 'disabled');
+        // $("#inputTX").prop('disabled', 'disabled');
+    }
+}
 
-        var url = "/api/hamlet/";
-        var id = $("#inputPX").val();
-        $('#inputTX option').remove();
-        $('#inputTX').val('');
-
+function getHamlet() {
+    var url = "/api/hamlet/";
+    var id = $("#inputPX").val();
+    $('#inputTX option').remove();
+    $('#inputTX').val('');
+    if (id !== "") {
         $.ajax({
             url : url+id,
             success : function (data) {
                 $('#inputTX').append($('<option>', {
                     value: "",
-                    text: "--Chọn Thôn/Xóm--"
+                    text: "-Chọn Thôn/Xóm-"
                 }));
                 $(data).each(function (i, item) {
                     console.log(item);
@@ -82,6 +110,9 @@ $(document).ready(function () {
                 $('.selectpicker').selectpicker('refresh');
             }
         });
-        return false;
-    });
-});
+
+    }
+    else {
+        // $("#inputTX").prop('disabled', 'disabled');
+    }
+}

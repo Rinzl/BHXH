@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="form-inline">
-                <input id="inputDefault" class="form-control mr-sm-2" placeholder="Mã số bảo hiểm xã hội">
+                <input id="inputDefault" maxlength="15" class="form-control mr-sm-2" placeholder="Mã số bảo hiểm xã hội">
                 <button id="btnCal" class="btn btn-outline-success my-2 my-sm-0">Tính</button>
             </div>
         </div>
@@ -34,6 +34,7 @@
 <script type="text/javascript" th:src="@{/bootstrap/js/numeral.min.js}"></script>
 <script type="text/javascript" th:src="@{/bootstrap/js/cleave.js}"></script>
 <script type="text/javascript" charset="UTF-8">
+    $('#inputDefault').focus();
     numeral.register('locale', 'vi', {
         delimiters: {
             thousands: '.',
@@ -97,13 +98,12 @@
             $('#result').text(result + numeral(r).format('0,0') + currency);
         } else {
             var search = $("#inputDefault").val();
-            var url = "/api/worker/info?msbh="+search;
+            var url = "/api/worker/calculator?ms="+search;
             $.ajax({
                 url : url,
                 success : function (data) {
                     if (data === '') alert("Ko tìm thấy mã bảo hiểm");
-                    var r = per * (numeral(data["salary"]).value());
-                    $('#result').text(result + numeral(r).format('0,0') + currency);
+                    else $('#result').text(result + numeral(data).format('0,0') + currency);
                 }
             });
         }

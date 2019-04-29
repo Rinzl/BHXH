@@ -15,12 +15,16 @@ public class DTOUtils {
             Worker worker = new Worker();
             IdentityCard identityCard = new IdentityCard();
             worker.setId(workerDTO.getId());
-            worker.setFullName(workerDTO.getFullName());
+            worker.setFullName(workerDTO.getFullName().trim());
             worker.setAddress(workerDTO.getAddress());
             worker.setEmail(workerDTO.getEmail());
             worker.setGender(workerDTO.getGender());
             worker.setMsbh(String.valueOf(System.currentTimeMillis()));
-            worker.setSalary(Integer.parseInt(workerDTO.getSalary().replace(".","").replace(",","")));
+            worker.setSalary(Double.parseDouble(workerDTO.getSalary().replace(".","").replace(",","")));
+            worker.setPc(Double.parseDouble(workerDTO.getPc().replace(".","").replace(",","")));
+            worker.setHt(Double.parseDouble(workerDTO.getHt().replace(".","").replace(",","")));
+            worker.setZone(workerDTO.getZone());
+            worker.setWorkplace(workerDTO.getWorkplace());
             worker.setPhoneNumber(workerDTO.getPhoneNumber());
             worker.setBirthDate(dateFormat.parse(workerDTO.getBirthDate()));
             identityCard.setId(workerDTO.getIdentityId());
@@ -48,7 +52,12 @@ public class DTOUtils {
         dto.setGender(worker.getGender());
         dto.setMsbh(worker.getMsbh());
         dto.setPhoneNumber(worker.getPhoneNumber());
-        dto.setSalary(String.valueOf(worker.getSalary()));
+        dto.setSalary(String.format("%.0f",worker.getSalary()));
+        dto.setPc(String.format("%.0f",worker.getPc()));
+        dto.setHt(String.format("%.0f",worker.getHt()));
+        dto.setZone(worker.getZone());
+        dto.setWorkplace(worker.getWorkplace().trim());
+        System.out.println(dto);
         return dto;
 
     }

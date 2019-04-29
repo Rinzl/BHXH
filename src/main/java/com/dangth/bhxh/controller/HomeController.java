@@ -36,7 +36,7 @@ public class HomeController {
         this.hamletRepository = hamletRepository;
     }
 
-    @GetMapping({"/", "index"})
+    @GetMapping({"/"})
     public String index() {
         return "home";
     }
@@ -52,7 +52,7 @@ public class HomeController {
         return "qlinfo";
     }
 
-    @GetMapping({"/bhxhfee"})
+    @GetMapping({"/calculatefee"})
     public String calculateFee() {
         return "bhxhfee";
     }

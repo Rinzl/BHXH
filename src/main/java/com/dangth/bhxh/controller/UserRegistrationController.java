@@ -38,10 +38,14 @@ public class UserRegistrationController {
         Worker worker = workerRepository.findByIdentityCard_Number(workerDto.getIdentityNumber());
         if (worker != null) {
             return "redirect:/registration?alreadyRegistered";
-        }
+        };
+        System.out.println(workerDto);
         worker = DTOUtils.toWorker(workerDto);
         System.out.println(worker);
-        workerRepository.save(worker);
-        return "redirect:/registration?success";
+        if (worker != null) {
+            workerRepository.save(worker);
+            return "redirect:/registration?success";
+        }
+        return "redirect:/registration?fail";
     }
 }

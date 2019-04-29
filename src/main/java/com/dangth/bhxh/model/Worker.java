@@ -12,7 +12,7 @@ public class Worker implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "fullname")
     private String fullName;
@@ -33,7 +33,11 @@ public class Worker implements Serializable {
 
     private String email;
     private String msbh;
-    private Integer salary;
+    private Double salary;
+    private Double pc;
+    private Double ht;
+    private Integer zone;
+    private String workplace;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", nullable = false)

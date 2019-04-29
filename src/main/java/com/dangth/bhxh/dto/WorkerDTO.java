@@ -19,5 +19,9 @@ public class WorkerDTO {
     private String email;
     private String msbh;
     private String salary;
+    private String pc;
+    private String ht;
+    private Integer zone;
+    private String workplace;
     private Address address;
 }

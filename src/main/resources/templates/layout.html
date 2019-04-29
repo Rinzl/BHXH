@@ -17,25 +17,25 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-            <li class="nav-item active">
+            <li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI() == '/' ? 'active' : '' }">
                 <a class="nav-link" th:href="@{/}">Trang chủ <span class="sr-only">(current)</span></a>
             </li>
-            <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item">
-                <a class="nav-link" th:href="@{/qlinfo}">thông tin cá nhân</a>
+            <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item" th:classappend="${#httpServletRequest.getRequestURI() == '/qlinfo' ? 'active' : ''}">
+                <a class="nav-link" th:href="@{/qlinfo}">Cập nhật hồ sơ</a>
             </li>
-            <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item">
+            <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item" th:classappend="${#httpServletRequest.getRequestURI() == '/registration' ? 'active' : ''}">
                 <a class="nav-link" th:href="@{/registration}">Tạo mới đăng kí</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/info}">Tra mã số BHXH</a>
+            <li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI() == '/info' ? 'active' : ''}">
+                <a class="nav-link" th:href="@{/info}">Tra thông tin BHXH</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/bhxhfee}">Tính phí BHXH</a>
-            </li>
-            <li sec:authorize="isAnonymous()" class="nav-item">
+            <!--<li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI() == '/calculatefee' ? 'active' : ''}">-->
+                <!--<a class="nav-link" th:href="@{/calculatefee}">Tính phí BHXH</a>-->
+            <!--</li>-->
+            <li sec:authorize="isAnonymous()" class="nav-item" th:classappend="${#httpServletRequest.getRequestURI() == '/login' ? 'active' : ''}">
                 <a class="nav-link" th:href="@{/login}">Đăng nhập</a>
             </li>
-            <li sec:authorize="!isAnonymous()" class="nav-item">
+            <li sec:authorize="!isAnonymous()" class="nav-item" th:classappend="${#httpServletRequest.getRequestURI() == '/logout' ? 'active' : ''}">
                 <form id="logoutForm" action="#" th:action="@{/logout}" method="POST">
                     <a class="nav-link" href="#" onclick="document.getElementById('logoutForm').submit()">Đăng xuất</a>
                 </form>
