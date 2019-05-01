@@ -2,10 +2,12 @@ package com.dangth.bhxh.dto;
 
 import com.dangth.bhxh.model.Address;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@EqualsAndHashCode
 public class WorkerDTO {
     private Long id;
     private Long identityId;
@@ -24,4 +26,7 @@ public class WorkerDTO {
     private Integer zone;
     private String workplace;
     private Address address;
+
+    private String fee;
+    private String type;
 }

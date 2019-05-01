@@ -40,7 +40,7 @@ public class UserRegistrationController {
             return "redirect:/registration?alreadyRegistered";
         };
         System.out.println(workerDto);
-        worker = DTOUtils.toWorker(workerDto);
+        worker = DTOUtils.toWorker(workerDto, true);
         System.out.println(worker);
         if (worker != null) {
             workerRepository.save(worker);

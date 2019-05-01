@@ -1,12 +1,14 @@
 package com.dangth.bhxh.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 @Data
 @Entity
+@EqualsAndHashCode
 @Table(name = "worker")
 public class Worker implements Serializable {
 
@@ -37,6 +39,7 @@ public class Worker implements Serializable {
     private Double pc;
     private Double ht;
     private Integer zone;
+    private Integer type;
     private String workplace;
 
     @OneToOne(cascade = CascadeType.ALL)

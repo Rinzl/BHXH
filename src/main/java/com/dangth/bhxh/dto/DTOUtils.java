@@ -10,7 +10,7 @@ public class DTOUtils {
 
     private static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-    public static Worker toWorker(WorkerDTO workerDTO) {
+    public static Worker toWorker(WorkerDTO workerDTO, boolean generateID) {
         try {
             Worker worker = new Worker();
             IdentityCard identityCard = new IdentityCard();
@@ -19,7 +19,12 @@ public class DTOUtils {
             worker.setAddress(workerDTO.getAddress());
             worker.setEmail(workerDTO.getEmail());
             worker.setGender(workerDTO.getGender());
-            worker.setMsbh(String.valueOf(System.currentTimeMillis()));
+            if (generateID) {
+                worker.setMsbh(String.valueOf(System.currentTimeMillis()));
+            }
+            else {
+                worker.setMsbh(workerDTO.getMsbh());
+            }
             worker.setSalary(Double.parseDouble(workerDTO.getSalary().replace(".","").replace(",","")));
             worker.setPc(Double.parseDouble(workerDTO.getPc().replace(".","").replace(",","")));
             worker.setHt(Double.parseDouble(workerDTO.getHt().replace(".","").replace(",","")));
@@ -31,6 +36,7 @@ public class DTOUtils {
             identityCard.setNumber(workerDTO.getIdentityNumber());
             identityCard.setPlace(workerDTO.getPlace());
             identityCard.setValidFrom(dateFormat.parse(workerDTO.getValidFrom()));
+            worker.setType(Integer.valueOf(workerDTO.getType()));
             worker.setIdentityCard(identityCard);
             return worker;
         } catch (ParseException e) {
@@ -39,6 +45,21 @@ public class DTOUtils {
         }
     }
     public static WorkerDTO toWorkerDTO(Worker worker) {
+        WorkerDTO workerDTO = transferData(worker);
+        System.out.println(workerDTO);
+        return workerDTO;
+
+    }
+
+    public static WorkerDTO toWorkerDTO(Worker worker, String fee) {
+        WorkerDTO dto = transferData(worker);
+        dto.setFee(fee);
+        System.out.println(dto);
+        return dto;
+
+    }
+
+    private static WorkerDTO transferData(Worker worker) {
         WorkerDTO dto = new WorkerDTO();
         dto.setAddress(worker.getAddress());
         dto.setFullName(worker.getFullName());
@@ -51,14 +72,13 @@ public class DTOUtils {
         dto.setPlace(worker.getIdentityCard().getPlace());
         dto.setGender(worker.getGender());
         dto.setMsbh(worker.getMsbh());
+        dto.setType(String.valueOf(worker.getType()));
         dto.setPhoneNumber(worker.getPhoneNumber());
         dto.setSalary(String.format("%.0f",worker.getSalary()));
         dto.setPc(String.format("%.0f",worker.getPc()));
         dto.setHt(String.format("%.0f",worker.getHt()));
         dto.setZone(worker.getZone());
         dto.setWorkplace(worker.getWorkplace().trim());
-        System.out.println(dto);
         return dto;
-
     }
 }

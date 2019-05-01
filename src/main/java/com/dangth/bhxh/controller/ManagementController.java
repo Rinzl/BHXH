@@ -4,6 +4,7 @@ import com.dangth.bhxh.dto.DTOUtils;
 import com.dangth.bhxh.dto.WorkerDTO;
 import com.dangth.bhxh.model.Worker;
 import com.dangth.bhxh.repository.WorkerRepository;
+import com.dangth.bhxh.utils.Calculator;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +27,7 @@ public class ManagementController {
             worker = workerRepository.findByMsbh(number);
         }
 
-        return worker != null ? DTOUtils.toWorkerDTO(worker) : null;
+        return worker != null ? DTOUtils.toWorkerDTO(worker, String.format("%.0f", Calculator.calculate(worker))) : null;
     }
     @GetMapping("/info")
     public Worker getInfoByMSBH(@RequestParam("msbh") String msbh) {

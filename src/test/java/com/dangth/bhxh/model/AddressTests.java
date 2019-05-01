@@ -3,7 +3,7 @@ package com.dangth.bhxh.model;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class AddressTest {
+public class AddressTests {
 
     @Test
     public void testGetSetId() {

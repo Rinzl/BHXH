@@ -78,12 +78,12 @@ public class HomeController {
     }
 
     @PostMapping("/qlinfo")
-    public String upDateQlInfo(@ModelAttribute("worker") WorkerDTO workerDto) {
+    public String updateQlinfo(@ModelAttribute("worker") WorkerDTO workerDto) {
         System.out.println(workerDto);
         Worker worker = workerRepository.findByIdentityCard_NumberAndIdentityCard_IdNot(workerDto.getIdentityNumber(), workerDto.getIdentityId());
         System.out.println(worker);
         if (worker == null) {
-            workerRepository.save(DTOUtils.toWorker(workerDto));
+            workerRepository.save(DTOUtils.toWorker(workerDto, false));
             return "redirect:/qlinfo?success";
         }
         else {

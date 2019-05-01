@@ -18,12 +18,13 @@
                 <th>Họ và tên</th>
                 <th>Ngày sinh</th>
                 <th>Số BHXH</th>
+                <th>Loại BH</th>
                 <th>Số CMND</th>
+                <th>Nơi làm việc</th>
+                <th>Vùng</th>
                 <th>Lương(VNĐ)</th>
                 <th>Phụ cấp(VNĐ)</th>
                 <th>Hỗ trợ(VNĐ)</th>
-                <th>Nơi làm việc</th>
-                <th>Vùng</th>
                 <th>Phí BHXH(VNĐ)</th>
             </tr>
             </thead>
@@ -90,28 +91,38 @@
                             else fee = 0;
                             const MAX_SAL = 27800000;
                             if (sal >= MAX_SAL) fee = MAX_SAL * 0.08;
+                            var typeInt = data["type"];
+                            var type;
+                            if (typeInt == 1) {
+                                type = "Bắt buộc";
+                            }
+                            else {
+                                type = "Tự nguyện";
+                            }
                             var markup =
                                 "<tr><td>"
                                 + data["fullName"]
-                                +"</td><td>"
+                                + "</td><td>"
                                 + data["birthDate"]
                                 + "</td><td>"
                                 + data["msbh"]
                                 + "</td><td>"
+                                + type
+                                + "</td><td>"
                                 + data["identityNumber"]
                                 + "</td><td>"
-                                +numeral(data["salary"]).format('0,0')
-                                +"</td><td>"
-                                +numeral(data["pc"]).format('0,0')
-                                +"</td><td>"
-                                +numeral(data["ht"]).format('0,0')
-                                +"</td><td>"
-                                +data["workplace"]
-                                +"</td><td>Vùng "
-                                +zone
-                                +"</td><td>"
-                                +numeral(fee).format('0,0')
-                                +"</td>/tr>";
+                                + data["workplace"]
+                                + "</td><td>"
+                                + zone
+                                + "</td><td>"
+                                + numeral(data["salary"]).format('0,0')
+                                + "</td><td>"
+                                + numeral(data["pc"]).format('0,0')
+                                + "</td><td>"
+                                + numeral(data["ht"]).format('0,0')
+                                + "</td><td>"
+                                + numeral(data["fee"]).format('0,0')
+                                + "</td>/tr>";
                             $("table tbody").append(markup);
                         }
                     }

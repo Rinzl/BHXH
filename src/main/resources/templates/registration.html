@@ -18,6 +18,15 @@
 
     <h2 class="text-center mb-3">Đăng kí mới hồ sơ</h2>
     <form th:action="@{/registration}" th:object="${worker}" method="post" class="needs-validation form-center" novalidate>
+        <p>Loại bảo hiểm <span style="color : red">*</span> </p>
+        <div class="form-check form-check-inline mb-2">
+            <input th:field="*{type}" class="form-check-input" type="radio" name="inlineRadioOptions" id="radioTypeNormal" th:value="1" required>
+            <label class="form-check-label" for="radioTypeNormal">Bảo hiểm xã hội bắt buộc</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input th:field="*{type}" class="form-check-input" type="radio" name="inlineRadioOptions" id="radioTypeVolunteer" th:value="2" required>
+            <label class="form-check-label" for="radioTypeVolunteer">Bảo hiểm xã hội tự nguyện</label>
+        </div>
         <div class="form-group">
             <label for="inputName">Họ và tên <span style="color : red">*</span> </label>
             <input th:field="*{fullName}" minlength="2" pattern="^[a-zA-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s]+$" class="form-control" id="inputName" required type="text">
