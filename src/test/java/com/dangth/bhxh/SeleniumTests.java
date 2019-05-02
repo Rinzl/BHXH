@@ -43,7 +43,7 @@ public class SeleniumTests {
     @BeforeClass
     public static void setup() {
         WebDriverManager.firefoxdriver().setup();
-//        BhxhApplication.main(new String[]{});
+        BhxhApplication.main(new String[]{});
     }
     @Before
     public void setupTest() {
