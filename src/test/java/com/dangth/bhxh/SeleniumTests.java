@@ -43,7 +43,7 @@ public class SeleniumTests {
     @BeforeClass
     public static void setup() {
         WebDriverManager.firefoxdriver().setup();
-        BhxhApplication.main(new String[]{});
+//        BhxhApplication.main(new String[]{});
     }
     @Before
     public void setupTest() {
@@ -135,6 +135,23 @@ public class SeleniumTests {
     }
 
     @Test
+    public void testLogout() throws InterruptedException {
+        driver.get("http://localhost:8080/login");
+        WebElement loginButton = driver.findElement(By.className("btn"));
+        WebElement inputName = driver.findElement(By.id("inputName"));
+        WebElement inputPassword = driver.findElement(By.id("inputPassword"));
+        inputName.sendKeys("dangth@gmail.com");
+        inputPassword.sendKeys("123");
+        loginButton.submit();
+        Thread.sleep(1000);
+        driver.findElement(By.id("logoutForm")).submit();
+        Thread.sleep(1000);
+        String expectedResult = "Đăng xuất thành công";
+        String actual = driver.findElement(By.className("alert-info")).getText();
+        Assert.assertEquals(expectedResult, actual);
+    }
+
+    @Test
     public void testInfoPageInput() {
         driver.get("http://localhost:8080/info");
         String actual = driver.findElement(By.id("search")).getTagName();
@@ -170,6 +187,35 @@ public class SeleniumTests {
         Thread.sleep(1000);
         String expectedResult = "Trần Hải Đăng";
         String actual = driver.findElement(By.tagName("td")).getText();
+        Assert.assertEquals(expectedResult, actual);
+
+    }
+
+    @Test
+    public void testInfoPageInputEmptyCall() throws InterruptedException {
+        driver.get("http://localhost:8080/info");
+        WebElement inputSearch = driver.findElement(By.id("search"));
+        WebElement searchButton = driver.findElement(By.id("action"));
+        searchButton.click();
+        driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+        Thread.sleep(1000);
+        String expectedResult = "Vui lòng nhập MSBH hoặc CMT";
+        String actual = driver.switchTo().alert().getText();
+        Assert.assertEquals(expectedResult, actual);
+
+    }
+
+    @Test
+    public void testInfoPageNotFound() throws InterruptedException {
+        driver.get("http://localhost:8080/info");
+        WebElement inputSearch = driver.findElement(By.id("search"));
+        WebElement searchButton = driver.findElement(By.id("action"));
+        inputSearch.sendKeys("123123123232  gk");
+        searchButton.click();
+        driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+        Thread.sleep(1000);
+        String expectedResult = "Không tìm thấy thông tin";
+        String actual = driver.switchTo().alert().getText();
         Assert.assertEquals(expectedResult, actual);
 
     }

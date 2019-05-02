@@ -6,6 +6,7 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class Calculator {
     static final double MAX_SAL = 27800000;
+    static final double MIN_SAL_VOLUNTEER = 700000;
     public static final int NORMAL_TYPE = 1;
     public static final int VOLUNTEER_TYPE = 2;
     public static double calculate(Worker worker) {
@@ -36,7 +37,7 @@ public class Calculator {
             double sal = worker.getSalary() + worker.getPc();
             log.info("SAL : " + String.format("%.0f", sal));
             fee = sal * 0.22;
-            if (sal < 700000) return 0;
+            if (sal < MIN_SAL_VOLUNTEER) return 0;
             if (sal > MAX_SAL) fee = MAX_SAL * 0.22;
             log.info("FEE : " + fee);
             return fee;

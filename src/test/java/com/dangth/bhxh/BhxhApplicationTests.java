@@ -55,7 +55,7 @@ public class BhxhApplicationTests {
         Assert.assertEquals(expectedResult, actual);
     }
     @Test
-    public void tesstFindWorkerByIndentityCardNumber() {
+    public void testFindWorkerByIdentityCardNumber() {
         Worker expectedResult = new Worker();
         expectedResult.setId(5L);
         expectedResult.setFullName("Trần Hải Đăng");
@@ -205,6 +205,7 @@ public class BhxhApplicationTests {
         Assert.assertEquals((Double)expectedResult, (Double)actual);
     }
 
+    @Test
     public void testCalculateFeeVolunteer() {
         Worker worker = new Worker();
         worker.setId(5L);
@@ -223,6 +224,150 @@ public class BhxhApplicationTests {
         worker.setAddress(new Address(7L, "01TTT", "004HH", "00124", "00117710"));
         worker.setIdentityCard(new IdentityCard(7L, "071038685", "08TTT",java.sql.Date.valueOf("2019-03-14")));
         double expectedResult = 3542000;
+        double actual = Calculator.calculate(worker);
+        Assert.assertEquals((Double)expectedResult, (Double)actual);
+    }
+
+    @Test
+    public void testCalculateFeeNormalZone1True() {
+        Worker worker = new Worker();
+        worker.setSalary((double) 15030000);
+        worker.setPc((double) 1070000);
+        worker.setHt((double) 5000000);
+        worker.setZone(1);
+        worker.setType(Calculator.NORMAL_TYPE);
+
+        double expectedResult = 1288000;
+        double actual = Calculator.calculate(worker);
+        Assert.assertEquals((Double) expectedResult, (Double) actual);
+
+    }
+
+    @Test
+    public void testCalculateFeeNormalZone1Fail() {
+        Worker worker = new Worker();
+        worker.setSalary((double) 1000000);
+        worker.setPc((double) 1070000);
+        worker.setHt((double) 5000000);
+        worker.setZone(1);
+        worker.setType(Calculator.NORMAL_TYPE);
+
+        double expectedResult = 0;
+        double actual = Calculator.calculate(worker);
+        Assert.assertEquals((Double) expectedResult, (Double) actual);
+
+    }
+
+    @Test
+    public void testCalculateFeeNormalZone2True() {
+        Worker worker = new Worker();
+        worker.setSalary((double) 10000000);
+        worker.setPc((double) 1070000);
+        worker.setHt((double) 5000000);
+        worker.setZone(2);
+        worker.setType(Calculator.NORMAL_TYPE);
+
+        double expectedResult = 885600;
+        double actual = Calculator.calculate(worker);
+        Assert.assertEquals((Double) expectedResult, (Double) actual);
+
+    }
+
+    @Test
+    public void testCalculateFeeNormalZone2Fail() {
+        Worker worker = new Worker();
+        worker.setSalary((double) 1000000);
+        worker.setPc((double) 1070000);
+        worker.setHt((double) 5000000);
+        worker.setZone(2);
+        worker.setType(Calculator.NORMAL_TYPE);
+
+        double expectedResult = 0;
+        double actual = Calculator.calculate(worker);
+        Assert.assertEquals((Double) expectedResult, (Double) actual);
+
+    }
+
+    @Test
+    public void testCalculateFeeNormalZone3True() {
+        Worker worker = new Worker();
+        worker.setSalary((double) 10000000);
+        worker.setPc((double) 1070000);
+        worker.setHt((double) 5000000);
+        worker.setZone(3);
+        worker.setType(Calculator.NORMAL_TYPE);
+
+        double expectedResult = 885600;
+        double actual = Calculator.calculate(worker);
+        Assert.assertEquals((Double) expectedResult, (Double) actual);
+
+    }
+
+    @Test
+    public void testCalculateFeeNormalZone3Fail() {
+        Worker worker = new Worker();
+        worker.setSalary((double) 1000000);
+        worker.setPc((double) 1070000);
+        worker.setHt((double) 5000000);
+        worker.setZone(3);
+        worker.setType(Calculator.NORMAL_TYPE);
+
+        double expectedResult = 0;
+        double actual = Calculator.calculate(worker);
+        Assert.assertEquals((Double) expectedResult, (Double) actual);
+
+    }
+
+    @Test
+    public void testCalculateFeeNormalZone4True() {
+        Worker worker = new Worker();
+        worker.setSalary((double) 10000000);
+        worker.setPc((double) 1070000);
+        worker.setHt((double) 5000000);
+        worker.setZone(4);
+        worker.setType(Calculator.NORMAL_TYPE);
+
+        double expectedResult = 885600;
+        double actual = Calculator.calculate(worker);
+        Assert.assertEquals((Double) expectedResult, (Double) actual);
+
+    }
+
+    @Test
+    public void testCalculateFeeNormalZone4Fail() {
+        Worker worker = new Worker();
+        worker.setSalary((double) 1000000);
+        worker.setPc((double) 1070000);
+        worker.setHt((double) 5000000);
+        worker.setZone(3);
+        worker.setType(Calculator.NORMAL_TYPE);
+
+        double expectedResult = 0;
+        double actual = Calculator.calculate(worker);
+        Assert.assertEquals((Double) expectedResult, (Double) actual);
+
+    }
+
+    @Test
+    public void testCalculateFeeVolunteerSmallerThanMinSalary() {
+        Worker worker = new Worker();
+        worker.setSalary((double) 100000);
+        worker.setPc((double) 100000);
+        worker.setHt((double) 5000000);
+        worker.setType(Calculator.VOLUNTEER_TYPE);
+        double expectedResult = 0;
+        double actual = Calculator.calculate(worker);
+        Assert.assertEquals((Double)expectedResult, (Double)actual);
+    }
+
+    @Test
+    public void testCalculateFeeVolunteerBiggerThanMaxSalary() {
+        Worker worker = new Worker();
+        worker.setSalary((double) 30000000);
+        worker.setPc((double) 100000);
+        worker.setHt((double) 5000000);
+        worker.setType(Calculator.VOLUNTEER_TYPE);
+        double expectedResult = 6116000;
         double actual = Calculator.calculate(worker);
         Assert.assertEquals((Double)expectedResult, (Double)actual);
     }
