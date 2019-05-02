@@ -41,6 +41,7 @@ public class BhxhApplicationTests {
         expectedResult.setEmail("tranhaidang2320@live.com");
         expectedResult.setBirthDate(java.sql.Date.valueOf("1997-01-20"));
         expectedResult.setGender(1);
+        expectedResult.setType(Calculator.NORMAL_TYPE);
         expectedResult.setPhoneNumber("0377289069");
         expectedResult.setMsbh("1556527910970");
         expectedResult.setSalary((double) 15030000);
@@ -67,6 +68,7 @@ public class BhxhApplicationTests {
         expectedResult.setPc((double) 1070000);
         expectedResult.setHt((double) 5000000);
         expectedResult.setZone(2);
+        expectedResult.setType(Calculator.NORMAL_TYPE);
         expectedResult.setWorkplace("VCCorp");
         expectedResult.setAddress(new Address(7L, "01TTT", "004HH", "00124", "00117710"));
         expectedResult.setIdentityCard(new IdentityCard(7L, "071038685", "08TTT",java.sql.Date.valueOf("2019-03-14")));
@@ -100,6 +102,7 @@ public class BhxhApplicationTests {
         expectedResult.setPc("1070000");
         expectedResult.setHt("5000000");
         expectedResult.setZone(2);
+        expectedResult.setType("1");
         expectedResult.setWorkplace("VCCorp");
         expectedResult.setAddress(new Address(7L, "01TTT", "004HH", "00124", "00117710"));
         expectedResult.setIdentityId(7L);
@@ -112,6 +115,7 @@ public class BhxhApplicationTests {
         worker.setEmail("tranhaidang2320@live.com");
         worker.setBirthDate(java.sql.Date.valueOf("1997-01-20"));
         worker.setGender(1);
+        worker.setType(Calculator.NORMAL_TYPE);
         worker.setPhoneNumber("0377289069");
         worker.setMsbh("1556527910970");
         worker.setSalary((double) 15030000);
@@ -139,6 +143,7 @@ public class BhxhApplicationTests {
         workerDTO.setPc("1070000");
         workerDTO.setHt("5000000");
         workerDTO.setZone(2);
+        workerDTO.setType("1");
         workerDTO.setWorkplace("VCCorp");
         workerDTO.setAddress(new Address(7L, "01TTT", "004HH", "00124", "00117710"));
         workerDTO.setIdentityId(7L);
@@ -157,6 +162,7 @@ public class BhxhApplicationTests {
         expectedResult.setPc((double) 1070000);
         expectedResult.setHt((double) 5000000);
         expectedResult.setZone(2);
+        expectedResult.setType(Calculator.NORMAL_TYPE);
         expectedResult.setWorkplace("VCCorp");
         expectedResult.setAddress(new Address(7L, "01TTT", "004HH", "00124", "00117710"));
         expectedResult.setIdentityCard(new IdentityCard(7L, "071038685", "08TTT",new GregorianCalendar(2019, Calendar.MARCH, 14).getTime()));
@@ -171,7 +177,13 @@ public class BhxhApplicationTests {
     }
 
     @Test
-    public void testCalculateFee() {
+    public void testEncryptPasswordFail() {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        Assert.assertFalse(encoder.matches("12323", "$2a$10$tfrsFQv//azBkhsCq22VD.pj/AcJJZZubmpI530.vF/vJJUji8JiW"));
+    }
+
+    @Test
+    public void testCalculateFeeNormal() {
         Worker worker = new Worker();
         worker.setId(5L);
         worker.setFullName("Trần Hải Đăng");
@@ -184,10 +196,33 @@ public class BhxhApplicationTests {
         worker.setPc((double) 1070000);
         worker.setHt((double) 5000000);
         worker.setZone(2);
+        worker.setType(Calculator.NORMAL_TYPE);
         worker.setWorkplace("VCCorp");
         worker.setAddress(new Address(7L, "01TTT", "004HH", "00124", "00117710"));
         worker.setIdentityCard(new IdentityCard(7L, "071038685", "08TTT",java.sql.Date.valueOf("2019-03-14")));
         double expectedResult = 1288000;
+        double actual = Calculator.calculate(worker);
+        Assert.assertEquals((Double)expectedResult, (Double)actual);
+    }
+
+    public void testCalculateFeeVolunteer() {
+        Worker worker = new Worker();
+        worker.setId(5L);
+        worker.setFullName("Trần Hải Đăng");
+        worker.setEmail("tranhaidang2320@live.com");
+        worker.setBirthDate(java.sql.Date.valueOf("1997-01-20"));
+        worker.setGender(1);
+        worker.setPhoneNumber("0377289069");
+        worker.setMsbh("1556527910970");
+        worker.setSalary((double) 15030000);
+        worker.setPc((double) 1070000);
+        worker.setHt((double) 5000000);
+        worker.setZone(2);
+        worker.setType(Calculator.VOLUNTEER_TYPE);
+        worker.setWorkplace("VCCorp");
+        worker.setAddress(new Address(7L, "01TTT", "004HH", "00124", "00117710"));
+        worker.setIdentityCard(new IdentityCard(7L, "071038685", "08TTT",java.sql.Date.valueOf("2019-03-14")));
+        double expectedResult = 3542000;
         double actual = Calculator.calculate(worker);
         Assert.assertEquals((Double)expectedResult, (Double)actual);
     }
@@ -203,6 +238,7 @@ public class BhxhApplicationTests {
         worker.setGender(1);
         worker.setPhoneNumber("0377289069");
         worker.setMsbh("1556527910971");
+        worker.setType(Calculator.NORMAL_TYPE);
         worker.setSalary((double) 15030000);
         worker.setPc((double) 1070000);
         worker.setHt((double) 5000000);

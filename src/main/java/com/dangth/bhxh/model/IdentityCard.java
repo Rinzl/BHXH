@@ -15,6 +15,7 @@ import java.util.Date;
 public class IdentityCard {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Exclude
     private Long id;
     private String number;
     private String place;

@@ -40,6 +40,11 @@ public class LocationAPITests {
         Assert.assertEquals(expectedResult, actual);
     }
     @Test
+    public void testFindCityByNameFail() {
+        City actual = cityRepository.findByCity("zzz");
+        Assert.assertNull(actual);
+    }
+    @Test
     public void testFindCityById() {
         City actual = cityRepository.findById("08TTT").orElse(null);
         City expectedResult = new City();
@@ -62,6 +67,12 @@ public class LocationAPITests {
 
         Assert.assertEquals(expectedResult, actual);
     }
+    @Test
+    public void testFindProvinceByCityIdFail() {
+        List<Province> actual = provinceRepository.findAllByIdcity("121z");
+        List<Province> expectedResult = new ArrayList<>();
+        Assert.assertEquals(expectedResult, actual);
+    }
 
     @Test
     public void testFindCommuneByIdProvince() {
@@ -77,6 +88,13 @@ public class LocationAPITests {
         expectedResult.add(new Commune("02296","071HH","Xã Thổ Bình"));
         Assert.assertEquals(expectedResult, actual);
     }
+
+    @Test
+    public void testFindCommuneByIdProvinceFail() {
+        List<Commune> actual = communeRepository.findAllByIdprovince("071zHH");
+        List<Commune> expectedResult = new ArrayList<>();
+        Assert.assertEquals(expectedResult, actual);
+    }
     @Test
     public void testFindHamletByIdCommune() {
         List<Hamlet> actual = hamletRepository.findAllByIdcommune("02233");
@@ -87,6 +105,13 @@ public class LocationAPITests {
         expectedResult.add(new Hamlet("00044824", "02233", "Bản Tấng"));
         expectedResult.add(new Hamlet("00048035", "02233", "Bản Thàng"));
         expectedResult.add(new Hamlet("00051045", "02233", "Phiêng Mơ"));
+        Assert.assertEquals(expectedResult, actual);
+    }
+
+    @Test
+    public void testFindHamletByIdCommuneFail() {
+        List<Hamlet> actual = hamletRepository.findAllByIdcommune("022z33");
+        List<Hamlet> expectedResult = new ArrayList<>();
         Assert.assertEquals(expectedResult, actual);
     }
 
